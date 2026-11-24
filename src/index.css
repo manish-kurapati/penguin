@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+:root { font-family: Arial, Helvetica, sans-serif; color: #3f352d; background: #f8f4ec; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+button { font: inherit; }
