@@ -1,0 +1,6 @@
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import WaveDivider from '@/components/WaveDivider'
+
+export const metadata: Metadata = { title: 'Our story' }
+export default function About() { return <main className="interior-page"><section className="about-hero section-shell"><div><p className="eyebrow">About Little Penguin</p><h1>Made for<br/><em>being little.</em></h1><p>We believe childhood clothes should feel comfortable, look lovely, and leave room for every bit of play. Our warm, simple collection is imagined for everyday moments that become lasting memories.</p><Link href="/shop" className="button">Explore the collection</Link></div><div className="about-model"><img src="/images/category-sweaters.webp" alt="Child wearing an ivory sweater"/></div></section><WaveDivider from="#fffaf0" to="#f8edcf"/><section className="about-values"><div className="section-shell"><p className="eyebrow">Our point of view</p><h2>Comfort to move.<br/><em>Space to imagine.</em></h2><div className="values-grid"><div><h3>Everyday comfort</h3><p>Clothes should feel as lovely as the memories made in them.</p></div><div><h3>Room to explore</h3><p>Easy silhouettes give little ones freedom to play and discover.</p></div><div><h3>Simple joy</h3><p>Warm colors and thoughtful details make ordinary days feel special.</p></div></div></div></section></main> }

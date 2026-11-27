@@ -1,0 +1,11 @@
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import Link from 'next/link'
+import ProductCard from '@/components/ProductCard'
+import AddToBag from '@/components/AddToBag'
+import WishlistButton from '@/components/WishlistButton'
+import { categories, money, products } from '@/data'
+
+export function generateStaticParams() { return products.map(p => ({ slug: p.slug })) }
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const { slug } = await params; return { title: products.find(p => p.slug === slug)?.name || 'Product' } }
+export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) { const { slug } = await params; const product = products.find(p => p.slug === slug); if (!product) notFound(); const category = categories.find(c => c.slug === product.category); return <main className="interior-page"><div className="section-shell product-page"><div className="breadcrumbs"><Link href="/shop">Shop</Link> <span>/</span> <Link href={`/shop/${product.category}`}>{product.categoryLabel}</Link> <span>/</span> {product.name}</div><div className="product-detail"><div className="product-gallery"><div className="detail-photo"><img src={product.image} alt={product.name}/></div>{category && <div className="detail-editorial"><img src={category.image} alt={`Model wearing clothing from the ${category.name} collection`}/><span>From the {category.name} collection</span></div>}</div><div className="product-info"><p className="eyebrow">{product.categoryLabel}</p><div className="product-title-row"><h1>{product.name}</h1><WishlistButton slug={product.slug}/></div><p className="detail-price">{money(product.price)}</p><p className="detail-note">{product.description}</p><p className="detail-color">Color: <strong>{product.color}</strong></p><AddToBag product={product}/><div className="detail-assurance"><span>Comfortable everyday fit</span><span>Sizes from 1–6 years</span></div></div></div><div className="related"><div className="section-heading"><div><p className="eyebrow">Keep exploring</p><h2>More to love</h2></div><Link href="/shop" className="text-link">Shop all</Link></div><div className="product-grid">{products.filter(p => p.slug !== slug).slice(0, 3).map(p => <ProductCard key={p.slug} product={p}/>)}</div></div></div></main> }

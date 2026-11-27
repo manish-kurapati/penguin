@@ -1,0 +1,10 @@
+const fs = require('fs')
+const path = require('path')
+const sharp = require('sharp')
+const directory = path.join(__dirname, '..', 'public', 'images')
+Promise.all(fs.readdirSync(directory).filter(name => name.endsWith('.png')).map(async name => {
+  const source = path.join(directory, name)
+  const output = path.join(directory, name.replace(/\.png$/, '.webp'))
+  await sharp(source).resize({ width: 900, withoutEnlargement: true }).webp({ quality: 82 }).toFile(output)
+  console.log(path.basename(output))
+})).catch(error => { console.error(error); process.exitCode = 1 })
